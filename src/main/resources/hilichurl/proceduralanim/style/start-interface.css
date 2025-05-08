@@ -1,0 +1,9 @@
+.scene{
+    -fx-pref-width:1000px;
+    -fx-pref-height:600px;
+}
+
+Pane Button{
+    -fx-pref-width:200px;
+    -fx-pref-height:35px;
+}
