@@ -9,23 +9,29 @@ import java.util.ArrayList;
 
 public class BiologyRenderer {
     Path path=new Path();
+    Biology parent;     //渲染器所依附的对象
 
-    public void renderContour(Biology biology,Pane root)
+    //生物创建时，初始化器获取渲染器实例，并建立联系
+    public BiologyRenderer(Biology parent){
+        this.parent=parent;
+        RenderSystem.allRenders.add(this);
+    }
+
+    public void renderContour(Pane root)
     {
         ArrayList<ArrayList<Point2D>> lines;
 
         //清空上一帧的绘制。
-        root.getChildren().clear();
         root.getChildren().add(path);
         path.getElements().clear();
-        lines=biology.getRenderLines();
+        lines=parent.getRenderLines();
 
         //依次绘制线段
         for(ArrayList<Point2D> line:lines){
             renderLine(line);
         }
 
-        path.setFill(biology.color);
+        path.setFill(parent.color);
     }
 
     private void renderLine(ArrayList<Point2D> line){

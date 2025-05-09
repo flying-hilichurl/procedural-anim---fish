@@ -4,11 +4,16 @@ import hilichurl.proceduralanim.biology.Fish;
 import hilichurl.proceduralanim.controller.StartController;
 import hilichurl.proceduralanim.enums.SceneEnums;
 import hilichurl.proceduralanim.renderer.BiologyRenderer;
+import hilichurl.proceduralanim.renderer.RenderSystem;
 import hilichurl.proceduralanim.renderer.StageRenderer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -19,7 +24,6 @@ public class Program extends Application {
     Scene poolScene;
     Stage mainStage;
     StageRenderer stageRenderer=new StageRenderer();
-    BiologyRenderer bioRenderer=new BiologyRenderer();
     HashMap<SceneEnums,Scene> sceneMap=new HashMap<>();
 
     @Override
@@ -31,7 +35,7 @@ public class Program extends Application {
         sceneMap.put(SceneEnums.startInterface, startScene);
         StartController startController=fxmlLoader.getController();
         startController.setClickHandler(new Handler());
-
+        stage.setOnCloseRequest(e ->Platform.exit());
         mainStage=stage;
         stageRenderer.configStage(mainStage);
 
@@ -49,7 +53,6 @@ public class Program extends Application {
         @Override
         public void run() {
             FXMLLoader poolLoader=new FXMLLoader(Program.class.getResource("/hilichurl/proceduralanim/pool.fxml"));
-
             //第一次进入pool场景时，加载场景的布局
             if(poolScene==null){
                 try {
@@ -59,10 +62,19 @@ public class Program extends Application {
                 }
                 sceneMap.put(SceneEnums.pool,poolScene );
             }
-
             switchScene(mainStage,SceneEnums.pool);
-            bioRenderer.renderContour(new Fish(),poolLoader.getRoot());
-            mainStage.show();
+
+            //创建生物
+            Fish fish =new Fish();
+            RenderSystem renderSystem=new RenderSystem();
+            Timeline timeline=new Timeline();
+            timeline.setCycleCount(Timeline.INDEFINITE);
+            KeyFrame keyFrame = new KeyFrame(Duration.millis(20),event->{
+                renderSystem.Render(poolLoader.getRoot());
+                mainStage.show();
+            });
+            timeline.getKeyFrames().add(keyFrame);
+            timeline.play();
         }
     }
 

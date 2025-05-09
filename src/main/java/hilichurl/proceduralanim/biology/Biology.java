@@ -2,6 +2,7 @@ package hilichurl.proceduralanim.biology;
 
 import hilichurl.proceduralanim.data.Bone;
 
+import hilichurl.proceduralanim.renderer.BiologyRenderer;
 import javafx.geometry.Point2D;
 import java.util.ArrayList;
 
@@ -10,6 +11,11 @@ import javafx.scene.paint.Color;
 public abstract class Biology {
     public Bone bone=new Bone();
     public Color color;
+    private final BiologyRenderer renderer;
+
+    public Biology(){
+        renderer=new BiologyRenderer(this);
+    }
 
     public ArrayList<ArrayList<Point2D>> getRenderLines(){
         //获取主体轮廓
