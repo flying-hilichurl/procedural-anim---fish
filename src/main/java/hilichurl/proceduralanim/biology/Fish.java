@@ -4,7 +4,7 @@ import hilichurl.proceduralanim.data.Bone;
 
 import javafx.scene.paint.Color;
 
-public class Fish extends Biology{
+public class Fish extends Biology {
     public Fish(){
         super();
 

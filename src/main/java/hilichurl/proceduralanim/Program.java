@@ -1,9 +1,9 @@
 package hilichurl.proceduralanim;
 
 import hilichurl.proceduralanim.biology.Fish;
-import hilichurl.proceduralanim.controller.StartController;
+import hilichurl.proceduralanim.playercontroller.PlayerInput;
+import hilichurl.proceduralanim.stagecontroller.StartController;
 import hilichurl.proceduralanim.enums.SceneEnums;
-import hilichurl.proceduralanim.renderer.BiologyRenderer;
 import hilichurl.proceduralanim.renderer.RenderSystem;
 import hilichurl.proceduralanim.renderer.StageRenderer;
 import javafx.animation.KeyFrame;
@@ -47,8 +47,6 @@ public class Program extends Application {
         launch();
     }
 
-
-
     private class Handler implements Runnable{
         @Override
         public void run() {
@@ -64,8 +62,12 @@ public class Program extends Application {
             }
             switchScene(mainStage,SceneEnums.pool);
 
-            //创建生物
             Fish fish =new Fish();
+            //绑定按键映射
+            PlayerInput playerInput=new PlayerInput();
+            playerInput.enableGameInput(fish,poolScene);
+
+            //启动渲染循环
             RenderSystem renderSystem=new RenderSystem();
             Timeline timeline=new Timeline();
             timeline.setCycleCount(Timeline.INDEFINITE);

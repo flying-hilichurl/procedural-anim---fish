@@ -8,6 +8,6 @@ module hilichurl.proceduralanim {
 
     opens hilichurl.proceduralanim to javafx.fxml;
     exports hilichurl.proceduralanim;
-    exports hilichurl.proceduralanim.controller;
-    opens hilichurl.proceduralanim.controller to javafx.fxml;
+    exports hilichurl.proceduralanim.stagecontroller;
+    opens hilichurl.proceduralanim.stagecontroller to javafx.fxml;
 }

@@ -12,6 +12,9 @@ public abstract class Biology {
     public Bone bone=new Bone();
     public Color color;
     private final BiologyRenderer renderer;
+    private Point2D target;     //将要移动到的位置
+
+    public void setTarget(Point2D target){this.target=target;System.out.println(target);}
 
     public Biology(){
         renderer=new BiologyRenderer(this);

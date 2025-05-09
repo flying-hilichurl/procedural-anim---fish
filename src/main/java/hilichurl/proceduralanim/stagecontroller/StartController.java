@@ -1,4 +1,4 @@
-package hilichurl.proceduralanim.controller;
+package hilichurl.proceduralanim.stagecontroller;
 
 import javafx.fxml.FXML;
 
